@@ -21,12 +21,10 @@ input.addEventListener(
     }
 
     fetchCountries(inputTarget).then(createMarkup).catch(onError);
+    clearMarkup();
   }, DEBOUNCE_DELAY)
 );
-function clearMarkup() {
-  countryList.innerHTML = '';
-  countryInfo.innerHTML = '';
-}
+
 function createMarkup(data) {
   if (data.length > 10) {
     clearMarkup();
@@ -38,7 +36,9 @@ function createMarkup(data) {
   }
 }
 function onError() {
+  
   Notify.failure('Oops, there is no country with that name');
+  
 }
 
 function markupList(data) {
@@ -59,4 +59,10 @@ function markupCountry(data) {
 <p><b>Capital:</b>${data[0].capital}</p>
 <p><b>Population:</b>${data[0].population}</p>
 <p><b>Languages:</b>${Object.values(data[0].languages)}</p>`;
+  countryInfo.innerHTML = markup;
+}
+
+function clearMarkup() {
+  countryList.innerHTML = '';
+  countryInfo.innerHTML = '';
 }
